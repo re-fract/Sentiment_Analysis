@@ -1,0 +1,26 @@
+# Core ML
+torch>=2.0
+transformers>=4.35
+accelerate>=0.21        # FP16 / gradient accumulation helpers
+datasets                # optional: for HF dataset loading
+scikit-learn>=1.3
+sentencepiece           # required by some tokenizers (e.g. XLM-R)
+
+# Data processing
+pandas>=2.0
+numpy>=1.24
+lxml                    # MAMS XML parsing
+pyyaml
+tqdm
+
+# LLM API
+openai>=1.0             # Cerebras OpenAI-compatible client
+python-dotenv           # .env file loading
+
+# Visualisation
+matplotlib
+seaborn
+plotly
+
+# Streamlit app
+streamlit>=1.28

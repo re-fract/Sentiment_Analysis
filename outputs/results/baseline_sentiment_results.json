@@ -1,0 +1,60 @@
+{
+  "B1_semeval_only": {
+    "LR": {
+      "macro_f1": 0.5355,
+      "accuracy": 0.778,
+      "per_class": {
+        "positive": 0.8694,
+        "negative": 0.6453,
+        "neutral": 0.0919
+      }
+    },
+    "SVC": {
+      "macro_f1": 0.6292,
+      "accuracy": 0.8009,
+      "per_class": {
+        "positive": 0.8863,
+        "negative": 0.7068,
+        "neutral": 0.2944
+      }
+    },
+    "NB": {
+      "macro_f1": 0.3677,
+      "accuracy": 0.7042,
+      "per_class": {
+        "positive": 0.8204,
+        "negative": 0.2828,
+        "neutral": 0.0
+      }
+    }
+  },
+  "B2_full_train": {
+    "LR": {
+      "macro_f1": 0.605,
+      "accuracy": 0.616,
+      "per_class": {
+        "positive": 0.521,
+        "negative": 0.6168,
+        "neutral": 0.6771
+      }
+    },
+    "SVC": {
+      "macro_f1": 0.6135,
+      "accuracy": 0.6226,
+      "per_class": {
+        "positive": 0.5261,
+        "negative": 0.6425,
+        "neutral": 0.672
+      }
+    },
+    "NB": {
+      "macro_f1": 0.4818,
+      "accuracy": 0.4939,
+      "per_class": {
+        "positive": 0.5554,
+        "negative": 0.4293,
+        "neutral": 0.4608
+      }
+    }
+  }
+}

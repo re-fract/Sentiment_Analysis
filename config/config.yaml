@@ -1,0 +1,106 @@
+# ============================================================
+# Central Configuration — ABSA Pipeline
+# ============================================================
+
+# --- Paths ---
+paths:
+  raw:
+    semeval14_train: "data/raw/apc_datasets/110.SemEval/114.restaurant14/Restaurants_Train.xml.seg"
+    semeval14_test:  "data/raw/apc_datasets/110.SemEval/114.restaurant14/Restaurants_Test_Gold.xml.seg"
+    semeval15_train: "data/raw/apc_datasets/110.SemEval/115.restaurant15/restaurant_train.raw"
+    semeval15_test:  "data/raw/apc_datasets/110.SemEval/115.restaurant15/restaurant_test.raw"
+    semeval16_train: "data/raw/apc_datasets/110.SemEval/116.restaurant16/restaurant_train.raw"
+    semeval16_test:  "data/raw/apc_datasets/110.SemEval/116.restaurant16/restaurant_test.raw"
+    semeval16t5_train: "data/raw/apc_datasets/120.SemEval2016Task5/124.english/restaurants_train_english.xml.dat"
+    semeval16t5_test:  "data/raw/apc_datasets/120.SemEval2016Task5/124.english/restaurants_test_english.xml.dat"
+    mams_train: "data/raw/MAMS-ACSA/raw/train.xml"
+    mams_val:   "data/raw/MAMS-ACSA/raw/val.xml"
+    mams_test:  "data/raw/MAMS-ACSA/raw/test.xml"
+    acos_train: "data/raw/acos_datasets/504.Restaurant16/rest16_quad_train.tsv.jsonl"
+    acos_dev:   "data/raw/acos_datasets/504.Restaurant16/rest16_quad_dev.tsv.jsonl"
+    acos_test:  "data/raw/acos_datasets/504.Restaurant16/rest16_quad_test.tsv.jsonl"
+
+  processed:
+    semeval14_train: "data/processed/semeval14_train.csv"
+    semeval14_test:  "data/processed/semeval14_test.csv"
+    semeval15_train: "data/processed/semeval15_train.csv"
+    semeval15_test:  "data/processed/semeval15_test.csv"
+    semeval16_train: "data/processed/semeval16_train.csv"
+    semeval16_test:  "data/processed/semeval16_test.csv"
+    mams_train: "data/processed/mams_train.csv"
+    mams_val:   "data/processed/mams_val.csv"
+    mams_test:  "data/processed/mams_test.csv"
+    acos_train: "data/processed/acos_train.csv"
+    acos_dev:   "data/processed/acos_dev.csv"
+    acos_test:  "data/processed/acos_test.csv"
+    combined_train: "data/processed/combined_train.csv"
+
+  augmented:
+    raw:           "data/augmented/synthetic_raw.jsonl"
+    generated_raw: "data/augmented/synthetic_generated_raw.jsonl"
+    filtered:      "data/augmented/synthetic_filtered.csv"
+    gold:          "data/augmented/gold_verified_100.csv"
+
+  yelp:
+    raw:     "data/raw/yelp_academic_dataset_review.json"
+    business: "data/raw/yelp_academic_dataset_business.json"
+    sampled: "data/raw/yelp_restaurants_sampled.jsonl"
+
+  outputs:
+    models:  "outputs/models"
+    results: "outputs/results"
+    figures: "outputs/figures"
+
+# --- LLM API (Groq / Cerebras) ---
+cerebras:
+  api_key: "YOUR_API_KEY_HERE"   # Can also set GROQ_API_KEY or CEREBRAS_API_KEY in .env
+  base_url: "https://api.groq.com/openai/v1"   # Use https://api.groq.com/openai/v1 or https://api.cerebras.ai/v1
+  generator_model: "openai/gpt-oss-120b"      # High precision 120B model on Groq (200K TPD quota)
+  validator_model: "openai/gpt-oss-120b"
+  rate_limit_rpm: 8           # 8 calls/min = 16 reviews/min (stays smoothly under Groq's 8K TPM limit)
+  token_budget_tpm: 6000      # 6K/min TPM limit (under 8K limit)
+  max_retries: 5              # 5 retries to handle any temporary network/rate spikes
+  retry_backoff_base: 2.5     # seconds
+
+# --- Augmentation ---
+augmentation:
+  target_total: 6000
+  samples_per_request: 5
+  min_words: 8
+  max_words: 80
+  consistency_threshold: 0.80   # fraction of aspects that must match between models
+  distribution:
+    single_aspect: 0.40
+    dual_aspect: 0.40
+    triple_plus_aspect: 0.20
+    implicit_fraction: 0.30
+
+# --- Training ---
+training:
+  aspect_detector:
+    model_name: "bert-base-uncased"
+    learning_rate: 2.0e-5
+    batch_size: 16
+    gradient_accumulation_steps: 2   # effective batch = 32
+    num_epochs: 10
+    early_stopping_patience: 3
+    weight_decay: 0.01
+    warmup_ratio: 0.10
+    max_seq_length: 128
+    default_threshold: 0.50
+
+  sentiment_classifier:
+    model_name: "bert-base-uncased"
+    learning_rate: 2.0e-5
+    batch_size: 16
+    gradient_accumulation_steps: 2
+    num_epochs: 10
+    early_stopping_patience: 3
+    weight_decay: 0.01
+    warmup_ratio: 0.10
+    max_seq_length: 128
+
+# --- Evaluation ---
+evaluation:
+  consistency_check_threshold: 0.80
+  semeval_val_fraction: 0.10   # carved from combined SemEval training data

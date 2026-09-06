@@ -1,0 +1,172 @@
+sample_id,source,split,text,categories_fine,categories_coarse,sentiments,aspect_terms,is_implicit_flags,num_aspects,has_implicit,has_conflict
+acos_dev_00000,acos,dev,ca n ' t wait wait for my next visit .,['RESTAURANT#GENERAL'],['General'],['positive'],[None],[True],1,True,False
+acos_dev_00001,acos,dev,"their sake list was extensive , but we were looking for purple haze , which was n ' t listed but made for us upon request !","['DRINKS#STYLE_OPTIONS', 'SERVICE#GENERAL']","['Food', 'Service']","['positive', 'positive']","['sake list', None]","[False, True]",2,True,False
+acos_dev_00002,acos,dev,"the spicy tuna roll was unusually good and the rock shrimp tempura was awesome , great appetizer to share !","['FOOD#QUALITY', 'FOOD#QUALITY']","['Food', 'Food']","['positive', 'positive']","['spicy tuna roll', 'rock shrimp tempura']","[False, False]",2,False,False
+acos_dev_00003,acos,dev,we love th pink pony .,['RESTAURANT#GENERAL'],['General'],['positive'],['pink pony'],[False],1,False,False
+acos_dev_00004,acos,dev,this place has got to be the best japanese restaurant in the new york area .,['RESTAURANT#GENERAL'],['General'],['positive'],['place'],[False],1,False,False
+acos_dev_00005,acos,dev,"i tend to judge a sushi restaurant by its sea urchin , which was heavenly at sushi rose .",['FOOD#QUALITY'],['Food'],['positive'],['sea urchin'],[False],1,False,False
+acos_dev_00006,acos,dev,the prix fixe menu is worth every penny and you get more than enough ( both in quantity and quality ) .,"['FOOD#QUALITY', 'FOOD#STYLE_OPTIONS', 'FOOD#PRICES']","['Food', 'Food', 'Price']","['positive', 'positive', 'positive']","['prix fixe menu', 'prix fixe menu', 'prix fixe menu']","[False, False, False]",3,False,False
+acos_dev_00007,acos,dev,"the food here is rather good , but only if you like to wait for it .","['FOOD#QUALITY', 'SERVICE#GENERAL']","['Food', 'Service']","['positive', 'negative']","['food', None]","[False, True]",2,True,True
+acos_dev_00008,acos,dev,"also , specify if you like your food spicy - its rather bland if you do n ' t .",['FOOD#QUALITY'],['Food'],['negative'],['food'],[False],1,False,False
+acos_dev_00009,acos,dev,"the ambience is pretty and nice for conversation , so a casual lunch here would probably be best .","['AMBIENCE#GENERAL', 'AMBIENCE#GENERAL', 'RESTAURANT#MISCELLANEOUS']","['Ambience', 'Ambience', 'General']","['positive', 'positive', 'positive']","['ambience', 'ambience', None]","[False, False, True]",3,True,False
+acos_dev_00010,acos,dev,it was horrible .,['RESTAURANT#GENERAL'],['General'],['negative'],[None],[True],1,True,False
+acos_dev_00011,acos,dev,have been dozens of times and never failed to enjoy the experience .,['RESTAURANT#GENERAL'],['General'],['positive'],[None],[True],1,True,False
+acos_dev_00012,acos,dev,make sure you try this place as often as you can .,['RESTAURANT#GENERAL'],['General'],['positive'],['place'],[False],1,False,False
+acos_dev_00013,acos,dev,i had a huge group for my birthday and we were well taken care of .,['SERVICE#GENERAL'],['Service'],['positive'],[None],[True],1,True,False
+acos_dev_00014,acos,dev,get the tuna of gari .,['FOOD#QUALITY'],['Food'],['positive'],['tuna of gari'],[False],1,False,False
+acos_dev_00015,acos,dev,make sure you have the spicy scallop roll . . .,['FOOD#QUALITY'],['Food'],['positive'],['spicy scallop roll'],[False],1,False,False
+acos_dev_00016,acos,dev,"raga ' s is a romantic , cozy restaurant .","['AMBIENCE#GENERAL', 'AMBIENCE#GENERAL']","['Ambience', 'Ambience']","['positive', 'positive']","[""raga ' s"", ""raga ' s""]","[False, False]",2,False,False
+acos_dev_00017,acos,dev,i had a great time at jekyll and hyde !,['RESTAURANT#GENERAL'],['General'],['positive'],['jekyll and hyde'],[False],1,False,False
+acos_dev_00018,acos,dev,i am bringing my whole family back next time .,['RESTAURANT#MISCELLANEOUS'],['General'],['positive'],[None],[True],1,True,False
+acos_dev_00019,acos,dev,fine dining restaurant quality .,['FOOD#QUALITY'],['Food'],['positive'],['dining'],[False],1,False,False
+acos_dev_00020,acos,dev,we will return many times for this oasis in mid - town .,['RESTAURANT#GENERAL'],['General'],['positive'],[None],[True],1,True,False
+acos_dev_00021,acos,dev,the food options rule .,['FOOD#STYLE_OPTIONS'],['Food'],['positive'],['food'],[False],1,False,False
+acos_dev_00022,acos,dev,"my husband and i thougt it would be great to go to the jekyll and hyde pub for our anniversary , and to our surprise it was fantastic .","['RESTAURANT#GENERAL', 'RESTAURANT#GENERAL']","['General', 'General']","['positive', 'positive']","['jekyll and hyde pub', 'jekyll and hyde pub']","[False, False]",2,False,False
+acos_dev_00023,acos,dev,"please take my advice , go and try this place .",['RESTAURANT#GENERAL'],['General'],['positive'],['place'],[False],1,False,False
+acos_dev_00024,acos,dev,they were served warm and had a soft fluffy interior .,"['FOOD#QUALITY', 'FOOD#QUALITY']","['Food', 'Food']","['positive', 'positive']","[None, None]","[True, True]",2,True,False
+acos_dev_00025,acos,dev,but they do .,['SERVICE#GENERAL'],['Service'],['positive'],[None],[True],1,True,False
+acos_dev_00026,acos,dev,fresh restaurant was amazing . . . . . . . . food was delicious and of course fresh .,"['RESTAURANT#GENERAL', 'RESTAURANT#GENERAL', 'FOOD#QUALITY', 'FOOD#QUALITY']","['General', 'General', 'Food', 'Food']","['positive', 'positive', 'positive', 'positive']","['restaurant', 'restaurant', 'food', 'food']","[False, False, False, False]",4,False,False
+acos_dev_00027,acos,dev,hats off to the chef .,['FOOD#QUALITY'],['Food'],['positive'],['chef'],[False],1,False,False
+acos_dev_00028,acos,dev,"this is some really good , inexpensive sushi .","['FOOD#QUALITY', 'FOOD#PRICES']","['Food', 'Price']","['positive', 'positive']","['sushi', 'sushi']","[False, False]",2,False,False
+acos_dev_00029,acos,dev,this place is always very crowded and popular .,"['RESTAURANT#MISCELLANEOUS', 'RESTAURANT#MISCELLANEOUS']","['General', 'General']","['positive', 'positive']","['place', 'place']","[False, False]",2,False,False
+acos_dev_00030,acos,dev,and evaluated on those terms pastis is simply wonderful .,['RESTAURANT#GENERAL'],['General'],['positive'],['pastis'],[False],1,False,False
+acos_dev_00031,acos,dev,i ' m still mad that i had to pay for lousy food .,['FOOD#QUALITY'],['Food'],['negative'],['food'],[False],1,False,False
+acos_dev_00032,acos,dev,the hanger steak was like rubber and the tuna was flavorless not to mention it tasted like it had just been thawed .,"['FOOD#QUALITY', 'FOOD#QUALITY']","['Food', 'Food']","['negative', 'negative']","['hanger steak', 'tuna']","[False, False]",2,False,False
+acos_dev_00033,acos,dev,big thumbs up !,['RESTAURANT#GENERAL'],['General'],['positive'],[None],[True],1,True,False
+acos_dev_00034,acos,dev,the pizza and wine were excellent - the service too - - but what really made this place was the backyard dining area .,"['FOOD#QUALITY', 'DRINKS#QUALITY', 'SERVICE#GENERAL', 'AMBIENCE#GENERAL']","['Food', 'Food', 'Service', 'Ambience']","['positive', 'positive', 'positive', 'positive']","['pizza', 'wine', 'service', 'backyard dining area']","[False, False, False, False]",4,False,False
+acos_dev_00035,acos,dev,it is one the nicest outdoor restaurants i have ever seen in ny - - i am from italy and this place rivals the ones in my country .,['AMBIENCE#GENERAL'],['Ambience'],['positive'],['outdoor restaurants'],[False],1,False,False
+acos_dev_00036,acos,dev,it is simply amazing .,['FOOD#QUALITY'],['Food'],['positive'],[None],[True],1,True,False
+acos_dev_00037,acos,dev,beautiful experience .,['RESTAURANT#GENERAL'],['General'],['positive'],[None],[True],1,True,False
+acos_dev_00038,acos,dev,the menu is very limited - i think we counted 4 or 5 entrees .,['FOOD#STYLE_OPTIONS'],['Food'],['negative'],['menu'],[False],1,False,False
+acos_dev_00039,acos,dev,we will go back every time we are in the city .,['RESTAURANT#GENERAL'],['General'],['positive'],[None],[True],1,True,False
+acos_dev_00040,acos,dev,the characters really make for an enjoyable experience .,['AMBIENCE#GENERAL'],['Ambience'],['positive'],['characters'],[False],1,False,False
+acos_dev_00041,acos,dev,"however , i think jeckll and hydes t is one of those places that is fun to do once .",['RESTAURANT#GENERAL'],['General'],['positive'],['jeckll and hydes'],[False],1,False,False
+acos_dev_00042,acos,dev,we had a good time .,['RESTAURANT#GENERAL'],['General'],['positive'],[None],[True],1,True,False
+acos_dev_00043,acos,dev,a little overpriced but worth it once you take a bite .,"['FOOD#PRICES', 'FOOD#QUALITY']","['Price', 'Food']","['negative', 'positive']","[None, None]","[True, True]",2,True,True
+acos_dev_00044,acos,dev,i have lived in japan for 7 years and the taste of the food and the feel of the restaurant is like being back in japan .,"['FOOD#QUALITY', 'AMBIENCE#GENERAL']","['Food', 'Ambience']","['positive', 'positive']","['food', 'feel']","[False, False]",2,False,False
+acos_dev_00045,acos,dev,check out the secret back room .,['AMBIENCE#GENERAL'],['Ambience'],['positive'],['back room'],[False],1,False,False
+acos_dev_00046,acos,dev,thank you emilio .,['RESTAURANT#GENERAL'],['General'],['positive'],['emilio'],[False],1,False,False
+acos_dev_00047,acos,dev,the food was authentic .,['FOOD#QUALITY'],['Food'],['positive'],['food'],[False],1,False,False
+acos_dev_00048,acos,dev,fantastic !,['RESTAURANT#GENERAL'],['General'],['positive'],[None],[True],1,True,False
+acos_dev_00049,acos,dev,but the staff was so horrible to us .,['SERVICE#GENERAL'],['Service'],['negative'],['staff'],[False],1,False,False
+acos_dev_00050,acos,dev,decor is nice though service can be spotty .,"['AMBIENCE#GENERAL', 'SERVICE#GENERAL']","['Ambience', 'Service']","['positive', 'negative']","['decor', 'service']","[False, False]",2,False,True
+acos_dev_00051,acos,dev,just awsome .,['FOOD#QUALITY'],['Food'],['positive'],[None],[True],1,True,False
+acos_dev_00052,acos,dev,"i had their eggs benedict for brunch , which were the worst in my entire life , i tried removing the hollondaise sauce completely that was how failed it was .",['FOOD#QUALITY'],['Food'],['negative'],['eggs benedict'],[False],1,False,False
+acos_dev_00053,acos,dev,with the theater 2 blocks away we had a delicious meal in a beautiful room .,"['FOOD#QUALITY', 'AMBIENCE#GENERAL', 'LOCATION#GENERAL']","['Food', 'Ambience', 'General']","['positive', 'positive', 'positive']","['meal', 'room', None]","[False, False, True]",3,True,False
+acos_dev_00054,acos,dev,the service was attentive .,['SERVICE#GENERAL'],['Service'],['positive'],['service'],[False],1,False,False
+acos_dev_00055,acos,dev,patroon features a nice cigar bar and has great staff .,"['AMBIENCE#GENERAL', 'SERVICE#GENERAL']","['Ambience', 'Service']","['positive', 'positive']","['cigar bar', 'staff']","[False, False]",2,False,False
+acos_dev_00056,acos,dev,lloovve this place .,['RESTAURANT#GENERAL'],['General'],['positive'],['place'],[False],1,False,False
+acos_dev_00057,acos,dev,the menu is limited but almost all of the dishes are excellent .,"['FOOD#STYLE_OPTIONS', 'FOOD#QUALITY']","['Food', 'Food']","['negative', 'positive']","['menu', 'dishes']","[False, False]",2,False,True
+acos_dev_00058,acos,dev,wine list is extensive without being over - priced .,"['DRINKS#STYLE_OPTIONS', 'DRINKS#PRICES']","['Food', 'Price']","['positive', 'positive']","['wine list', 'wine list']","[False, False]",2,False,False
+acos_dev_00059,acos,dev,"the food was very good , a great deal , and the place its self was great .","['FOOD#QUALITY', 'FOOD#PRICES', 'AMBIENCE#GENERAL']","['Food', 'Price', 'Ambience']","['positive', 'positive', 'positive']","['food', 'food', 'place']","[False, False, False]",3,False,False
+acos_dev_00060,acos,dev,"the wait staff is very freindly , they make it feel like you ' re eating in a freindly little european town .",['SERVICE#GENERAL'],['Service'],['positive'],['wait staff'],[False],1,False,False
+acos_dev_00061,acos,dev,"the whole set up is truly unprofessional and i wish cafe noir would get some good staff , because despite the current one this is a great place .","['SERVICE#GENERAL', 'RESTAURANT#GENERAL']","['Service', 'General']","['negative', 'positive']","['staff', 'cafe noir']","[False, False]",2,False,True
+acos_dev_00062,acos,dev,you should pass on the calamari .,['FOOD#QUALITY'],['Food'],['negative'],['calamari'],[False],1,False,False
+acos_dev_00063,acos,dev,"when asked about how a certain dish was prepared in comparison to a similar at other thai restaurants , he replied this is not mcdonald ' s , every place makes things differently",['SERVICE#GENERAL'],['Service'],['negative'],[None],[True],1,True,False
+acos_dev_00064,acos,dev,"everything was wonderful ; food , drinks , staff , mileau .","['FOOD#QUALITY', 'DRINKS#QUALITY', 'SERVICE#GENERAL', 'AMBIENCE#GENERAL', 'RESTAURANT#GENERAL']","['Food', 'Food', 'Service', 'Ambience', 'General']","['positive', 'positive', 'positive', 'positive', 'positive']","['food', 'drinks', 'staff', 'mileau', None]","[False, False, False, False, True]",5,True,False
+acos_dev_00065,acos,dev,i would highly recommend this place !,['RESTAURANT#GENERAL'],['General'],['positive'],['place'],[False],1,False,False
+acos_dev_00066,acos,dev,fresh ingredients and everything is made to order .,"['FOOD#QUALITY', 'FOOD#QUALITY']","['Food', 'Food']","['positive', 'positive']","['ingredients', None]","[False, True]",2,True,False
+acos_dev_00067,acos,dev,friendly staff that actually lets you enjoy your meal and the company you ' re with .,['SERVICE#GENERAL'],['Service'],['positive'],['staff'],[False],1,False,False
+acos_dev_00068,acos,dev,i will definitely be going back .,['RESTAURANT#GENERAL'],['General'],['positive'],[None],[True],1,True,False
+acos_dev_00069,acos,dev,a great choice at any cost and a great deal .,"['RESTAURANT#GENERAL', 'RESTAURANT#PRICES']","['General', 'Price']","['positive', 'positive']","[None, None]","[True, True]",2,True,False
+acos_dev_00070,acos,dev,"thalia is a beautiful restaurant with beautiful people serving you , but the food does n ' t quite match up .","['SERVICE#GENERAL', 'FOOD#QUALITY', 'AMBIENCE#GENERAL']","['Service', 'Food', 'Ambience']","['positive', 'negative', 'positive']","['people', 'food', 'thalia']","[False, False, False]",3,False,True
+acos_dev_00071,acos,dev,i ordered the smoked salmon and roe appetizer and it was off flavor .,['FOOD#QUALITY'],['Food'],['negative'],['smoked salmon and roe appetizer'],[False],1,False,False
+acos_dev_00072,acos,dev,"the food is good , especially their more basic dishes , and the drinks are delicious .","['FOOD#QUALITY', 'FOOD#QUALITY', 'DRINKS#QUALITY']","['Food', 'Food', 'Food']","['positive', 'positive', 'positive']","['food', 'basic dishes', 'drinks']","[False, False, False]",3,False,False
+acos_dev_00073,acos,dev,the big complaint : no toasting available .,['SERVICE#GENERAL'],['Service'],['negative'],[None],[True],1,True,False
+acos_dev_00074,acos,dev,i ' ve been many time and have never been disappointed .,['RESTAURANT#GENERAL'],['General'],['positive'],[None],[True],1,True,False
+acos_dev_00075,acos,dev,the turkey burgers are scary !,['FOOD#QUALITY'],['Food'],['negative'],['turkey burgers'],[False],1,False,False
+acos_dev_00076,acos,dev,"for authentic thai food , look no further than toons .",['FOOD#QUALITY'],['Food'],['positive'],['thai food'],[False],1,False,False
+acos_dev_00077,acos,dev,"try the pad thai , or sample anything on the appetizer menu . . . they ' re all delicious .","['FOOD#QUALITY', 'FOOD#QUALITY']","['Food', 'Food']","['positive', 'positive']","['pad thai', 'pad thai']","[False, False]",2,False,False
+acos_dev_00078,acos,dev,service was good and food is wonderful .,"['SERVICE#GENERAL', 'FOOD#QUALITY']","['Service', 'Food']","['positive', 'positive']","['service', 'food']","[False, False]",2,False,False
+acos_dev_00079,acos,dev,it is definitely a good spot for snacks and chat .,['RESTAURANT#GENERAL'],['General'],['positive'],['spot'],[False],1,False,False
+acos_dev_00080,acos,dev,"do not get the go go hamburgers , no matter what the reviews say .",['FOOD#QUALITY'],['Food'],['negative'],['go go hamburgers'],[False],1,False,False
+acos_dev_00081,acos,dev,steamed fresh so brought hot hot hot to your table .,['FOOD#QUALITY'],['Food'],['positive'],[None],[True],1,True,False
+acos_dev_00082,acos,dev,"small servings for main entree , i had salmon ( wasnt impressed ) girlfriend had chicken , it was good .","['FOOD#QUALITY', 'FOOD#QUALITY', 'FOOD#GENERAL']","['Food', 'Food', 'General']","['negative', 'positive', 'negative']","['salmon', 'chicken', 'servings for main entree']","[False, False, False]",3,False,True
+acos_dev_00083,acos,dev,cute and decorative .,"['AMBIENCE#GENERAL', 'AMBIENCE#GENERAL']","['Ambience', 'Ambience']","['positive', 'positive']","[None, None]","[True, True]",2,True,False
+acos_dev_00084,acos,dev,excellent spot for holiday get togethers with co - workers or friends that you have n ' t seen in a while .,['RESTAURANT#MISCELLANEOUS'],['General'],['positive'],['spot'],[False],1,False,False
+acos_dev_00085,acos,dev,what a great place !,['RESTAURANT#GENERAL'],['General'],['positive'],['place'],[False],1,False,False
+acos_dev_00086,acos,dev,not the typical nyc gimmick theme restaurant .,['AMBIENCE#GENERAL'],['Ambience'],['positive'],['restaurant'],[False],1,False,False
+acos_dev_00087,acos,dev,service was very prompt but slightly rushed .,"['SERVICE#GENERAL', 'SERVICE#GENERAL']","['Service', 'Service']","['positive', 'positive']","['service', 'service']","[False, False]",2,False,False
+acos_dev_00088,acos,dev,i really liked this place .,['RESTAURANT#GENERAL'],['General'],['positive'],['place'],[False],1,False,False
+acos_dev_00089,acos,dev,"everything i had was good , and i ' m a eater .",['FOOD#QUALITY'],['Food'],['positive'],[None],[True],1,True,False
+acos_dev_00090,acos,dev,i also recommend the rice dishes or the different varieties of congee ( rice porridge ) .,"['FOOD#QUALITY', 'FOOD#QUALITY']","['Food', 'Food']","['positive', 'positive']","['rice dishes', 'congee ( rice porridge )']","[False, False]",2,False,False
+acos_dev_00091,acos,dev,i recently tried suan and i thought that it was great .,['RESTAURANT#GENERAL'],['General'],['positive'],['suan'],[False],1,False,False
+acos_dev_00092,acos,dev,have been several times and it never dissapoints .,['RESTAURANT#GENERAL'],['General'],['positive'],[None],[True],1,True,False
+acos_dev_00093,acos,dev,this place is a great bargain .,['RESTAURANT#PRICES'],['Price'],['positive'],['place'],[False],1,False,False
+acos_dev_00094,acos,dev,people are always friendly .,['SERVICE#GENERAL'],['Service'],['positive'],['people'],[False],1,False,False
+acos_dev_00095,acos,dev,the best pad thai i ' ve ever had .,['FOOD#QUALITY'],['Food'],['positive'],['pad thai'],[False],1,False,False
+acos_dev_00096,acos,dev,would n ' t recomend it for dinner !,['RESTAURANT#GENERAL'],['General'],['negative'],[None],[True],1,True,False
+acos_dev_00097,acos,dev,"ask for usha , the nicest bartender in manhattan .",['SERVICE#GENERAL'],['Service'],['positive'],['usha'],[False],1,False,False
+acos_dev_00098,acos,dev,the food ' s as good as ever .,['FOOD#QUALITY'],['Food'],['positive'],['food'],[False],1,False,False
+acos_dev_00099,acos,dev,best drumsticks over rice and sour spicy soup in town !,"['FOOD#QUALITY', 'FOOD#QUALITY']","['Food', 'Food']","['positive', 'positive']","['drumsticks over rice', 'sour spicy soup']","[False, False]",2,False,False
+acos_dev_00100,acos,dev,"for those that go once and do n ' t enjoy it , all i can say is that they just do n ' t get it .",['RESTAURANT#MISCELLANEOUS'],['General'],['positive'],[None],[True],1,True,False
+acos_dev_00101,acos,dev,not worth it .,['FOOD#PRICES'],['Price'],['negative'],[None],[True],1,True,False
+acos_dev_00102,acos,dev,this dish is my favorite and i always get it when i go there and never get tired of it .,['FOOD#QUALITY'],['Food'],['positive'],['dish'],[False],1,False,False
+acos_dev_00103,acos,dev,big wong is a great place to eat and fill your stomach .,['RESTAURANT#GENERAL'],['General'],['positive'],['big wong'],[False],1,False,False
+acos_dev_00104,acos,dev,the food is okay and the prices here are mediocre .,"['FOOD#QUALITY', 'RESTAURANT#PRICES']","['Food', 'Price']","['neutral', 'neutral']","['food', None]","[False, True]",2,True,False
+acos_dev_00105,acos,dev,me and my girls will definitely go back .,['RESTAURANT#GENERAL'],['General'],['positive'],[None],[True],1,True,False
+acos_dev_00106,acos,dev,the food is great .,['FOOD#QUALITY'],['Food'],['positive'],['food'],[False],1,False,False
+acos_dev_00107,acos,dev,"la rosa waltzes in , and i think they are doing it the best .",['FOOD#QUALITY'],['Food'],['positive'],['la rosa'],[False],1,False,False
+acos_dev_00108,acos,dev,"interesting selection , good wines , service fine , fun decor .","['DRINKS#QUALITY', 'SERVICE#GENERAL', 'AMBIENCE#GENERAL', 'FOOD#STYLE_OPTIONS']","['Food', 'Service', 'Ambience', 'Food']","['positive', 'positive', 'positive', 'positive']","['wines', 'service', 'decor', 'selection']","[False, False, False, False]",4,False,False
+acos_dev_00109,acos,dev,the food here was mediocre at best .,['FOOD#QUALITY'],['Food'],['negative'],['food'],[False],1,False,False
+acos_dev_00110,acos,dev,the cypriot restaurant has a lot going for it .,['RESTAURANT#GENERAL'],['General'],['positive'],['cypriot restaurant'],[False],1,False,False
+acos_dev_00111,acos,dev,"will comeback for sure , wish they have it here in la . .",['RESTAURANT#GENERAL'],['General'],['positive'],[None],[True],1,True,False
+acos_dev_00112,acos,dev,"the space kind of feels like an alice in wonderland setting , without it trying to be that .",['AMBIENCE#GENERAL'],['Ambience'],['negative'],['space'],[False],1,False,False
+acos_dev_00113,acos,dev,"i paid just about $ 60 for a good meal , though : )","['FOOD#QUALITY', 'FOOD#PRICES']","['Food', 'Price']","['positive', 'positive']","['meal', 'meal']","[False, False]",2,False,False
+acos_dev_00114,acos,dev,love it .,['RESTAURANT#GENERAL'],['General'],['positive'],[None],[True],1,True,False
+acos_dev_00115,acos,dev,"the place is a bit hidden away , but once you get there , it ' s all worth it .","['LOCATION#GENERAL', 'LOCATION#GENERAL']","['General', 'General']","['positive', 'positive']","['place', 'place']","[False, False]",2,False,False
+acos_dev_00116,acos,dev,i love their chicken pasta cant remember the name but is sooo good,"['FOOD#QUALITY', 'FOOD#QUALITY']","['Food', 'Food']","['positive', 'positive']","['chicken pasta', 'chicken pasta']","[False, False]",2,False,False
+acos_dev_00117,acos,dev,way below average,['RESTAURANT#GENERAL'],['General'],['negative'],[None],[True],1,True,False
+acos_dev_00118,acos,dev,i think the pizza is so overrated and was under cooked .,"['FOOD#QUALITY', 'FOOD#QUALITY']","['Food', 'Food']","['negative', 'negative']","['pizza', 'pizza']","[False, False]",2,False,False
+acos_dev_00119,acos,dev,i love this place,['RESTAURANT#GENERAL'],['General'],['positive'],['place'],[False],1,False,False
+acos_dev_00120,acos,dev,the service was quick and friendly .,"['SERVICE#GENERAL', 'SERVICE#GENERAL']","['Service', 'Service']","['positive', 'positive']","['service', 'service']","[False, False]",2,False,False
+acos_dev_00121,acos,dev,i thought the restaurant was nice and clean .,"['RESTAURANT#GENERAL', 'AMBIENCE#GENERAL']","['General', 'Ambience']","['positive', 'positive']","['restaurant', 'restaurant']","[False, False]",2,False,False
+acos_dev_00122,acos,dev,chicken teriyaki had tomato or pimentos on top ? ?,['FOOD#STYLE_OPTIONS'],['Food'],['negative'],['chicken teriyaki'],[False],1,False,False
+acos_dev_00123,acos,dev,the waitress was not attentive at all .,['SERVICE#GENERAL'],['Service'],['negative'],['waitress'],[False],1,False,False
+acos_dev_00124,acos,dev,just go to yamato and order the red dragon roll .,"['RESTAURANT#GENERAL', 'FOOD#QUALITY']","['General', 'Food']","['positive', 'positive']","['yamato', 'red dragon roll']","[False, False]",2,False,False
+acos_dev_00125,acos,dev,favorite sushi in nyc,['FOOD#QUALITY'],['Food'],['positive'],['sushi'],[False],1,False,False
+acos_dev_00126,acos,dev,the rolls are creative and i have yet to find another sushi place that serves up more inventive yet delicious japanese food .,"['FOOD#STYLE_OPTIONS', 'FOOD#STYLE_OPTIONS', 'FOOD#QUALITY']","['Food', 'Food', 'Food']","['positive', 'positive', 'positive']","['rolls', 'japanese food', 'japanese food']","[False, False, False]",3,False,False
+acos_dev_00127,acos,dev,my quesadilla tasted like it had been made by a three - year old with no sense of proportion or flavor .,"['FOOD#QUALITY', 'FOOD#STYLE_OPTIONS']","['Food', 'Food']","['negative', 'negative']","['quesadilla', 'quesadilla']","[False, False]",2,False,False
+acos_dev_00128,acos,dev,save your money and your time and go somewhere else .,['RESTAURANT#GENERAL'],['General'],['negative'],[None],[True],1,True,False
+acos_dev_00129,acos,dev,"the spinach is fresh , definately not frozen . . .",['FOOD#QUALITY'],['Food'],['positive'],['spinach'],[False],1,False,False
+acos_dev_00130,acos,dev,decor needs to be upgraded but the food is amazing !,"['AMBIENCE#GENERAL', 'FOOD#QUALITY']","['Ambience', 'Food']","['negative', 'positive']","['decor', 'food']","[False, False]",2,False,True
+acos_dev_00131,acos,dev,my daughter ' s wedding reception at water ' s edge received the highest compliments from our guests .,['RESTAURANT#MISCELLANEOUS'],['General'],['positive'],"[""water ' s edge""]",[False],1,False,False
+acos_dev_00132,acos,dev,the high prices you ' re going to pay is for the view not for the food .,"['LOCATION#GENERAL', 'FOOD#QUALITY', 'RESTAURANT#PRICES']","['General', 'Food', 'Price']","['neutral', 'negative', 'negative']","['view', 'food', None]","[False, False, True]",3,True,True
+acos_dev_00133,acos,dev,not what i would expect for the price and prestige of this location .,"['RESTAURANT#PRICES', 'RESTAURANT#MISCELLANEOUS', 'SERVICE#GENERAL']","['Price', 'General', 'Service']","['neutral', 'neutral', 'negative']","['location', 'location', None]","[False, False, True]",3,True,True
+acos_dev_00134,acos,dev,the food was ok and fair nothing to go crazy .,"['FOOD#QUALITY', 'FOOD#QUALITY']","['Food', 'Food']","['neutral', 'neutral']","['food', 'food']","[False, False]",2,False,False
+acos_dev_00135,acos,dev,impressed . . .,['RESTAURANT#GENERAL'],['General'],['positive'],[None],[True],1,True,False
+acos_dev_00136,acos,dev,subtle food and service,"['FOOD#QUALITY', 'SERVICE#GENERAL']","['Food', 'Service']","['positive', 'positive']","['food', 'service']","[False, False]",2,False,False
+acos_dev_00137,acos,dev,"food took some time to prepare , all worth waiting for .","['FOOD#QUALITY', 'SERVICE#GENERAL']","['Food', 'Service']","['positive', 'neutral']","['food', None]","[False, True]",2,True,True
+acos_dev_00138,acos,dev,great find in the west village !,['RESTAURANT#GENERAL'],['General'],['positive'],[None],[True],1,True,False
+acos_dev_00139,acos,dev,"when the bill came , nothing was comped , so i told the manager very politely that we were willing to pay for the wine , but i did n ' t think i should have to pay for food with a maggot in it .",['SERVICE#GENERAL'],['Service'],['negative'],[None],[True],1,True,False
+acos_dev_00140,acos,dev,amazing food .,['FOOD#QUALITY'],['Food'],['positive'],['food'],[False],1,False,False
+acos_dev_00141,acos,dev,"rather than preparing vegetarian dish , the chef presented me with a plate of steamed vegetables ( minus sauce , seasoning , or any form or aesthetic presentation ) .","['FOOD#QUALITY', 'FOOD#STYLE_OPTIONS', 'SERVICE#GENERAL']","['Food', 'Food', 'Service']","['negative', 'negative', 'negative']","['vegetarian dish', 'vegetarian dish', 'chef']","[False, False, False]",3,False,False
+acos_dev_00142,acos,dev,the only thing that strikes you is the decor ? ( not very pleasant ) .,['AMBIENCE#GENERAL'],['Ambience'],['negative'],['decor'],[False],1,False,False
+acos_dev_00143,acos,dev,the martinis are amazing and very fairly priced .,"['DRINKS#QUALITY', 'DRINKS#PRICES']","['Food', 'Price']","['positive', 'positive']","['martinis', 'martinis']","[False, False]",2,False,False
+acos_dev_00144,acos,dev,"i wanted to go there to see if it was worth it and sadly , curiousity got the best of me and i paid dearly for it .","['RESTAURANT#GENERAL', 'RESTAURANT#PRICES']","['General', 'Price']","['negative', 'negative']","[None, None]","[True, True]",2,True,False
+acos_dev_00145,acos,dev,the environment is very upscale and you will see a lot of rich guys with trophy wives or just highly paid escorts .,"['AMBIENCE#GENERAL', 'RESTAURANT#MISCELLANEOUS']","['Ambience', 'General']","['neutral', 'neutral']","['environment', None]","[False, True]",2,True,False
+acos_dev_00146,acos,dev,"however , our $ 14 drinks were were horrible !","['DRINKS#QUALITY', 'DRINKS#PRICES']","['Food', 'Price']","['negative', 'negative']","['drinks', 'drinks']","[False, False]",2,False,False
+acos_dev_00147,acos,dev,"once we finally got a table , despite indicating we wanted an alla carte menu we were pushed into a table that was only price fixed !",['SERVICE#GENERAL'],['Service'],['negative'],[None],[True],1,True,False
+acos_dev_00148,acos,dev,i do n ' t appreciate places or people that try to drive up the bill without the patron ' s knowledge so that was a huge turnoff ( more than the price ) .,"['SERVICE#GENERAL', 'RESTAURANT#PRICES']","['Service', 'Price']","['negative', 'negative']","[None, None]","[True, True]",2,True,False
+acos_dev_00149,acos,dev,eat at your own risk .,['FOOD#QUALITY'],['Food'],['negative'],[None],[True],1,True,False
+acos_dev_00150,acos,dev,the service was spectacular as the waiter knew everything about the menu and his recommendations were amazing !,"['SERVICE#GENERAL', 'SERVICE#GENERAL']","['Service', 'Service']","['positive', 'positive']","['service', 'waiter']","[False, False]",2,False,False
+acos_dev_00151,acos,dev,the sake ’ s complimented the courses very well and is successfully easing me into the sake world .,['DRINKS#QUALITY'],['Food'],['positive'],['sake ’ s'],[False],1,False,False
+acos_dev_00152,acos,dev,"maybe it was the great company ( i had friends visiting from philly – yes , it was not a date this time ) or the super reasonable price point , but i just can ’ t say enough good things about this brasserie .","['RESTAURANT#GENERAL', 'RESTAURANT#PRICES']","['General', 'Price']","['positive', 'positive']","['brasserie', 'brasserie']","[False, False]",2,False,False
+acos_dev_00153,acos,dev,i tried a couple other dishes but was n ' t too impressed .,['FOOD#QUALITY'],['Food'],['neutral'],['dishes'],[False],1,False,False
+acos_dev_00154,acos,dev,the family seafood entree was very good .,['FOOD#QUALITY'],['Food'],['positive'],['family seafood entree'],[False],1,False,False
+acos_dev_00155,acos,dev,"the food they serve is not comforting , not appetizing and uncooked .","['FOOD#QUALITY', 'FOOD#QUALITY', 'FOOD#QUALITY']","['Food', 'Food', 'Food']","['negative', 'negative', 'negative']","['food', 'food', 'food']","[False, False, False]",3,False,False
+acos_dev_00156,acos,dev,supercilious scorn is in .,['SERVICE#GENERAL'],['Service'],['negative'],[None],[True],1,True,False
+acos_dev_00157,acos,dev,single worst restaurant in manhattan,['RESTAURANT#GENERAL'],['General'],['negative'],['restaurant'],[False],1,False,False
+acos_dev_00158,acos,dev,it is quite a spectacular scene i ' ll give them that .,['AMBIENCE#GENERAL'],['Ambience'],['positive'],['scene'],[False],1,False,False
+acos_dev_00159,acos,dev,"how this place survives the competitive west village market in this economy , or any other for that matter , is beyond me .",['RESTAURANT#GENERAL'],['General'],['negative'],['place'],[False],1,False,False
+acos_dev_00160,acos,dev,"though it ' s been crowded most times i ' ve gone here , bark always delivers on their food .","['RESTAURANT#MISCELLANEOUS', 'FOOD#QUALITY']","['General', 'Food']","['neutral', 'positive']","['bark', 'food']","[False, False]",2,False,True
+acos_dev_00161,acos,dev,"but nonetheless - - great spot , great food .","['RESTAURANT#GENERAL', 'FOOD#QUALITY']","['General', 'Food']","['positive', 'positive']","['spot', 'food']","[False, False]",2,False,False
+acos_dev_00162,acos,dev,"the food and service were fine , however the maitre - d was incredibly unwelcoming and arrogant .","['FOOD#QUALITY', 'SERVICE#GENERAL', 'SERVICE#GENERAL', 'SERVICE#GENERAL']","['Food', 'Service', 'Service', 'Service']","['positive', 'positive', 'negative', 'negative']","['food', 'service', 'maitre - d', 'maitre - d']","[False, False, False, False]",4,False,True
+acos_dev_00163,acos,dev,"a word to the wise : you ca n ' t dine here and disturb the maitre - d ' s sense of ` ` table turnover ' ' , as whacked as it is , or else .",['SERVICE#GENERAL'],['Service'],['negative'],['maitre - d'],[False],1,False,False
+acos_dev_00164,acos,dev,i had the lamb special which was perfect .,['FOOD#QUALITY'],['Food'],['positive'],['lamb special'],[False],1,False,False
+acos_dev_00165,acos,dev,do n ' t go to this place !,['RESTAURANT#GENERAL'],['General'],['negative'],['place'],[False],1,False,False
+acos_dev_00166,acos,dev,when the main course finally arrived ( another 45mins ) half of our order was missing .,['SERVICE#GENERAL'],['Service'],['negative'],[None],[True],1,True,False
+acos_dev_00167,acos,dev,"when we threatened to leave , we were offered a meager discount even though half the order was missing .",['SERVICE#GENERAL'],['Service'],['negative'],[None],[True],1,True,False
+acos_dev_00168,acos,dev,"the bread was stale , the salad was overpriced and empty .","['FOOD#QUALITY', 'FOOD#PRICES', 'FOOD#STYLE_OPTIONS']","['Food', 'Price', 'Food']","['negative', 'negative', 'negative']","['bread', 'salad', 'salad']","[False, False, False]",3,False,False
+acos_dev_00169,acos,dev,shame on this place for the horrible rude staff and non - existent customer service .,"['SERVICE#GENERAL', 'SERVICE#GENERAL', 'SERVICE#GENERAL']","['Service', 'Service', 'Service']","['negative', 'negative', 'negative']","['staff', 'staff', 'customer service']","[False, False, False]",3,False,False
+acos_dev_00170,acos,dev,the food is good .,['FOOD#QUALITY'],['Food'],['positive'],['food'],[False],1,False,False

@@ -1,0 +1,8 @@
+{
+  "best_asp_f1": 0.0,
+  "best_sent_f1": 0.14583333333333334,
+  "best_combined_f1": 0.07291666666666667,
+  "model": "roberta-base",
+  "data_config": "semeval_only",
+  "with_implicit": false
+}

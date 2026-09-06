@@ -1,0 +1,33 @@
+# Virtual Environment
+.venv/
+venv/
+ENV/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Environment Secrets
+.env
+.env.local
+*.pem
+*.key
+
+# Large raw datasets (> 100 MB cannot be pushed to GitHub)
+data/raw/yelp_academic_dataset_review.json
+data/raw/yelp_academic_dataset_business.json
+*.parquet
+
+# Model Weights (> 100 MB)
+outputs/models/*.pt
+outputs/models/*.bin
+outputs/models/*.onnx
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

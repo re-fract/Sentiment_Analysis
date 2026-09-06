@@ -1,0 +1,54 @@
+{
+  "B1_semeval_only": {
+    "LR": {
+      "macro_f1": 0.3644,
+      "micro_f1": 0.8444,
+      "hamming": 0.0603,
+      "per_class": {
+        "Food": 0.4762,
+        "Service": 0.4254,
+        "Ambience": 0.0,
+        "Price": 0.0,
+        "General": 0.9203
+      }
+    },
+    "SVC": {
+      "macro_f1": 0.4504,
+      "micro_f1": 0.8559,
+      "hamming": 0.0567,
+      "per_class": {
+        "Food": 0.6113,
+        "Service": 0.5623,
+        "Ambience": 0.0,
+        "Price": 0.1538,
+        "General": 0.9244
+      }
+    }
+  },
+  "B2_full_train": {
+    "LR": {
+      "macro_f1": 0.4984,
+      "micro_f1": 0.7612,
+      "hamming": 0.181,
+      "per_class": {
+        "Food": 0.7402,
+        "Service": 0.8184,
+        "Ambience": 0.0,
+        "Price": 0.1,
+        "General": 0.8337
+      }
+    },
+    "SVC": {
+      "macro_f1": 0.6985,
+      "micro_f1": 0.8278,
+      "hamming": 0.1365,
+      "per_class": {
+        "Food": 0.8285,
+        "Service": 0.8874,
+        "Ambience": 0.4,
+        "Price": 0.5385,
+        "General": 0.8383
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+name: Daily Yelp Review Labeler (Groq 5-Key)
+
+on:
+  schedule:
+    # Runs at 00:05 UTC every single day (5 minutes after Groq daily quota reset)
+    - cron: '5 0 * * *'
+  workflow_dispatch: # Allows manual trigger from GitHub Actions tab
+
+permissions:
+  contents: write # Needed to commit and push labeled data back to the repo
+
+concurrency:
+  group: daily-labeler
+  cancel-in-progress: false
+
+jobs:
+  label-reviews:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240 # Safety cap at 4 hours (well below GitHub's 6hr limit)
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install openai python-dotenv pyyaml tqdm
+
+      - name: Run Daily Labeling Pass
+        env:
+          GROQ_API_KEYS: ${{ secrets.GROQ_API_KEYS }}
+          GROQ_API_KEY_1: ${{ secrets.GROQ_API_KEY_1 }}
+          GROQ_API_KEY_2: ${{ secrets.GROQ_API_KEY_2 }}
+          GROQ_API_KEY_3: ${{ secrets.GROQ_API_KEY_3 }}
+          GROQ_API_KEY_4: ${{ secrets.GROQ_API_KEY_4 }}
+          GROQ_API_KEY_5: ${{ secrets.GROQ_API_KEY_5 }}
+        run: |
+          python scripts/run_daily_labeling.py \
+            --target-count 5000 \
+            --batch-size 2 \
+            --model llama-3.3-70b-versatile
+
+      - name: Commit and Push Newly Labeled Data
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add data/augmented/
+          if git diff --staged --quiet; then
+            echo "No new labeled data to commit for today."
+          else
+            echo "Committing newly labeled data..."
+            git commit -m "chore(data): auto-update labeled Yelp reviews [skip ci]"
+            git push
+          fi
