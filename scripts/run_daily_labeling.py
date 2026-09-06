@@ -37,6 +37,7 @@ try:
 except ImportError:
     pass
 
+from config.taxonomy import normalise_category, normalise_sentiment, map_to_coarse
 from src.augmentation.key_rotator import GroqKeyRotator, AllKeysExhaustedError
 from src.augmentation.prompt_templates import (
     build_batch_label_prompt,
@@ -124,6 +125,87 @@ def parse_batch_response(raw: Any, expected_count: int) -> List[List[dict]]:
             return results
 
     return []
+
+
+def sanitize_and_validate_labels(raw_labels: Any, review_text: str) -> tuple[bool, List[dict]]:
+    """
+    Strictly validate and clean labels before persisting to disk:
+    1. Ensures each label is a dict with category, sentiment, aspect_term, is_implicit.
+    2. Category is normalized and mapped to the canonical 5 (Food, Service, Ambience, Price, General).
+    3. Sentiment is normalized to 'positive', 'negative', or 'neutral'.
+    4. Implicit aspect consistency:
+       - If is_implicit is True or aspect_term is null/empty -> aspect_term = None, is_implicit = True
+       - If is_implicit is False: verify that aspect_term is a genuine substring in review_text.
+         If not found in text, convert to is_implicit=True, aspect_term=None (prevents span hallucinations).
+    5. Deduplicates identical (category, aspect_term, sentiment) tuples.
+
+    Returns:
+      (is_valid, cleaned_labels)
+    """
+    if raw_labels is None:
+        return False, []
+
+    if isinstance(raw_labels, dict):
+        if "labels" in raw_labels:
+            raw_labels = raw_labels["labels"]
+        elif "category" in raw_labels:
+            raw_labels = [raw_labels]
+        else:
+            return False, []
+
+    if not isinstance(raw_labels, list):
+        return False, []
+
+    cleaned: List[dict] = []
+    seen = set()
+    text_lower = review_text.lower()
+
+    for item in raw_labels:
+        if not isinstance(item, dict):
+            continue
+
+        # 1. Category validation & normalization
+        raw_cat = str(item.get("category") or "").strip()
+        if not raw_cat:
+            continue
+        norm_cat = map_to_coarse(normalise_category(raw_cat))
+        if norm_cat not in ("Food", "Service", "Ambience", "Price", "General"):
+            norm_cat = "General"
+
+        # 2. Sentiment validation & normalization
+        raw_sent = str(item.get("sentiment") or "").strip().lower()
+        norm_sent = normalise_sentiment(raw_sent)
+        if norm_sent not in ("positive", "negative", "neutral"):
+            continue
+
+        # 3. Aspect term & Implicit consistency check
+        is_implicit = bool(item.get("is_implicit", False))
+        term = item.get("aspect_term")
+
+        if is_implicit or not term or str(term).strip().lower() in ("null", "none", ""):
+            is_implicit = True
+            aspect_term = None
+        else:
+            aspect_term = str(term).strip()
+            # Verify aspect_term actually exists in the review text
+            if aspect_term.lower() not in text_lower:
+                # LLM hallucinated a span that doesn't appear in text -> ground it as implicit
+                is_implicit = True
+                aspect_term = None
+
+        key = (norm_cat, aspect_term.lower() if aspect_term else None, norm_sent, is_implicit)
+        if key in seen:
+            continue
+        seen.add(key)
+
+        cleaned.append({
+            "aspect_term": aspect_term,
+            "category": norm_cat,
+            "sentiment": norm_sent,
+            "is_implicit": is_implicit,
+        })
+
+    return True, cleaned
 
 
 def run_labeling_pass(
@@ -214,22 +296,33 @@ def run_labeling_pass(
                 raw = rotator.generate_json(prompt, system=BATCH_LABEL_SYSTEM, max_tokens=2500)
                 parsed_batch = parse_batch_response(raw, len(batch))
                 if parsed_batch and len(parsed_batch) == len(batch):
-                    batch_success = True
+                    # Validate all reviews in the batch
+                    validated_batch = []
+                    all_batch_valid = True
                     for idx, rev in enumerate(batch):
-                        labels = parsed_batch[idx]
-                        record = {
-                            "mode": "label",
-                            "review_id": rev["review_id"],
-                            "business_id": rev.get("business_id", ""),
-                            "stars": rev.get("stars"),
-                            "text": rev["text"],
-                            "labels": labels if isinstance(labels, list) else [],
-                            "source": "yelp",
-                            "timestamp": datetime.now(timezone.utc).isoformat(),
-                        }
-                        append_jsonl(record, output_file)
-                        done_ids.add(rev["review_id"])
-                        newly_labeled += 1
+                        ok, clean_labels = sanitize_and_validate_labels(parsed_batch[idx], rev["text"])
+                        if not ok:
+                            all_batch_valid = False
+                            break
+                        validated_batch.append(clean_labels)
+
+                    if all_batch_valid:
+                        batch_success = True
+                        for idx, rev in enumerate(batch):
+                            clean_labels = validated_batch[idx]
+                            record = {
+                                "mode": "label",
+                                "review_id": rev["review_id"],
+                                "business_id": rev.get("business_id", ""),
+                                "stars": rev.get("stars"),
+                                "text": rev["text"],
+                                "labels": clean_labels,
+                                "source": "yelp",
+                                "timestamp": datetime.now(timezone.utc).isoformat(),
+                            }
+                            append_jsonl(record, output_file)
+                            done_ids.add(rev["review_id"])
+                            newly_labeled += 1
             except AllKeysExhaustedError:
                 log.warning("[Labeling Pass] All API keys exhausted during batch request.")
                 all_exhausted = True
@@ -247,14 +340,18 @@ def run_labeling_pass(
                 prompt_single = build_label_prompt(rev["text"])
                 try:
                     raw_single = rotator.generate_json(prompt_single, system=LABEL_SYSTEM, max_tokens=1500)
-                    labels = raw_single.get("labels", []) if isinstance(raw_single, dict) else []
+                    ok, clean_labels = sanitize_and_validate_labels(raw_single, rev["text"])
+                    if not ok:
+                        log.warning(f"[Labeling Pass] Failed to validate labels for {rev_id}. Skipping to prevent dirty data.")
+                        continue
+
                     record = {
                         "mode": "label",
                         "review_id": rev_id,
                         "business_id": rev.get("business_id", ""),
                         "stars": rev.get("stars"),
                         "text": rev["text"],
-                        "labels": labels if isinstance(labels, list) else [],
+                        "labels": clean_labels,
                         "source": "yelp",
                         "timestamp": datetime.now(timezone.utc).isoformat(),
                     }

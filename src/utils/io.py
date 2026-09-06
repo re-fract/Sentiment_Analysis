@@ -6,7 +6,6 @@ import json
 from pathlib import Path
 from typing import Any
 
-import pandas as pd
 import yaml
 
 
@@ -19,13 +18,15 @@ def load_config(path: str | Path = "config/config.yaml") -> dict:
 
 # ── CSV ───────────────────────────────────────────────────────────────────────
 
-def save_csv(df: pd.DataFrame, path: str | Path) -> None:
+def save_csv(df: Any, path: str | Path) -> None:
+    import pandas as pd
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     df.to_csv(path, index=False, encoding="utf-8")
 
 
-def load_csv(path: str | Path) -> pd.DataFrame:
+def load_csv(path: str | Path) -> Any:
+    import pandas as pd
     return pd.read_csv(path, encoding="utf-8")
 
 
@@ -36,6 +37,7 @@ def append_jsonl(record: dict, path: str | Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a", encoding="utf-8") as fh:
         fh.write(json.dumps(record, ensure_ascii=False) + "\n")
+        fh.flush()
 
 
 def load_jsonl(path: str | Path) -> list[dict]:

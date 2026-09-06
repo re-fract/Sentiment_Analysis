@@ -61,9 +61,41 @@ class TestGroqKeyRotator(unittest.TestCase):
             "GROQ_API_KEYS": "k1, k2, k3",
             "GROQ_API_KEY_4": "k4",
             "GROQ_API_KEY_5": "k5",
-        }):
+        }, clear=True):
             keys = load_api_keys_from_env()
             self.assertEqual(keys, ["k1", "k2", "k3", "k4", "k5"])
+
+    def test_label_sanitization_and_validation(self):
+        from scripts.run_daily_labeling import sanitize_and_validate_labels
+
+        review_text = "The pizza was delicious, but service was terribly slow."
+        raw_labels = [
+            {"category": "FOOD#QUALITY", "sentiment": "pos", "aspect_term": "pizza", "is_implicit": False},
+            {"category": "service", "sentiment": "negative", "aspect_term": "service", "is_implicit": False},
+            # Hallucinated term not in text -> should convert to is_implicit=True
+            {"category": "ambience", "sentiment": "neutral", "aspect_term": "dining room", "is_implicit": False},
+            # Duplicate
+            {"category": "Food", "sentiment": "positive", "aspect_term": "pizza", "is_implicit": False},
+        ]
+
+        ok, cleaned = sanitize_and_validate_labels(raw_labels, review_text)
+        self.assertTrue(ok)
+        self.assertEqual(len(cleaned), 3)  # Duplicate removed
+
+        # Pizza -> Food, positive
+        self.assertEqual(cleaned[0]["category"], "Food")
+        self.assertEqual(cleaned[0]["sentiment"], "positive")
+        self.assertEqual(cleaned[0]["aspect_term"], "pizza")
+        self.assertFalse(cleaned[0]["is_implicit"])
+
+        # Service -> Service, negative
+        self.assertEqual(cleaned[1]["category"], "Service")
+        self.assertEqual(cleaned[1]["sentiment"], "negative")
+
+        # Dining room -> not in text -> converted to implicit
+        self.assertEqual(cleaned[2]["category"], "Ambience")
+        self.assertIsNone(cleaned[2]["aspect_term"])
+        self.assertTrue(cleaned[2]["is_implicit"])
 
 
 if __name__ == "__main__":
