@@ -46,8 +46,7 @@ jobs:
         run: |
           python scripts/run_daily_labeling.py \
             --target-count 5000 \
-            --batch-size 2 \
-            --model llama-3.3-70b-versatile
+            --batch-size 2
 
       - name: Commit and Push Newly Labeled Data
         run: |

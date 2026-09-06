@@ -45,7 +45,7 @@ from src.augmentation.prompt_templates import (
     BATCH_LABEL_SYSTEM,
     LABEL_SYSTEM,
 )
-from src.utils.io import append_jsonl, load_jsonl
+from src.utils.io import append_jsonl, load_jsonl, load_config
 from src.utils.logging import get_logger
 
 log = get_logger("daily_labeling")
@@ -384,6 +384,17 @@ def run_labeling_pass(
 
 
 def main() -> None:
+    # Read default model from config/config.yaml if available
+    cfg = {}
+    config_path = WORKSPACE_ROOT / "config" / "config.yaml"
+    if config_path.exists():
+        try:
+            cfg = load_config(config_path)
+        except Exception:
+            pass
+
+    default_model = cfg.get("cerebras", {}).get("generator_model", "openai/gpt-oss-120b")
+
     parser = argparse.ArgumentParser(description="Automated Daily Yelp Labeler with 5 Groq Keys")
     parser.add_argument(
         "--input",
@@ -412,8 +423,8 @@ def main() -> None:
     parser.add_argument(
         "--model",
         type=str,
-        default="llama-3.3-70b-versatile",
-        help="Groq model (default: llama-3.3-70b-versatile)",
+        default=default_model,
+        help=f"Groq model (default from config: {default_model})",
     )
     parser.add_argument(
         "--max-hours",

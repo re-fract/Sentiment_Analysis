@@ -20,6 +20,17 @@ from typing import Any, List, Optional, Set
 
 from src.utils.logging import get_logger
 
+try:
+    from dotenv import load_dotenv
+    # Load .env from workspace root
+    env_path = Path(__file__).resolve().parent.parent.parent / ".env"
+    if env_path.exists():
+        load_dotenv(env_path)
+    else:
+        load_dotenv()
+except ImportError:
+    pass
+
 log = get_logger("key_rotator")
 
 
@@ -113,7 +124,7 @@ class GroqKeyRotator:
     def __init__(
         self,
         api_keys: Optional[List[str]] = None,
-        model: str = "llama-3.3-70b-versatile",
+        model: str = "openai/gpt-oss-120b",
         base_url: Optional[str] = None,
         max_transient_retries: int = 5,
         base_backoff: float = 2.0,
