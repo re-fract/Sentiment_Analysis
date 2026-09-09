@@ -76,6 +76,40 @@ def load_api_keys_from_env() -> List[str]:
     return keys
 
 
+def parse_groq_wait_seconds(exc_str: str) -> Optional[float]:
+    """
+    Parse Groq's wait duration into total seconds.
+    Handles:
+      - 'try again in 2.5s'
+      - 'try again in 45s'
+      - 'try again in 1m15.4s'
+      - 'try again in 2m'
+      - 'try again in 14h23m15s'
+    """
+    match = re.search(r"try again in ([0-9hms\.\s]+)", exc_str, re.IGNORECASE)
+    if not match:
+        return None
+    wait_text = match.group(1).strip()
+
+    h_match = re.search(r"(\d+)\s*h", wait_text)
+    m_match = re.search(r"(\d+)\s*m(?!s)", wait_text)  # 'm' but not 'ms'
+    s_match = re.search(r"(\d+(?:\.\d+)?)\s*s", wait_text)
+
+    total = 0.0
+    found = False
+    if h_match:
+        total += float(h_match.group(1)) * 3600
+        found = True
+    if m_match:
+        total += float(m_match.group(1)) * 60
+        found = True
+    if s_match:
+        total += float(s_match.group(1))
+        found = True
+
+    return total if found else None
+
+
 def is_daily_limit_error(exc_str: str) -> tuple[bool, str]:
     """
     Check whether an exception string corresponds to a daily quota limit (RPD / TPD)
@@ -83,7 +117,15 @@ def is_daily_limit_error(exc_str: str) -> tuple[bool, str]:
     """
     exc_lower = exc_str.lower()
 
-    # Direct Groq quota keywords
+    # 1. Check if error is explicitly a per-minute rate limit (TPM or RPM)
+    is_explicit_minute = (
+        "tokens per minute" in exc_lower
+        or "requests per minute" in exc_lower
+        or ("tpm" in exc_lower and "tpd" not in exc_lower and "day" not in exc_lower)
+        or ("rpm" in exc_lower and "rpd" not in exc_lower and "day" not in exc_lower)
+    )
+
+    # 2. Direct Groq daily quota keywords
     if "requests per day" in exc_lower or "rpd" in exc_lower:
         return True, "Requests Per Day (RPD) limit reached"
     if "tokens per day" in exc_lower or "tpd" in exc_lower:
@@ -91,25 +133,24 @@ def is_daily_limit_error(exc_str: str) -> tuple[bool, str]:
     if "daily limit" in exc_lower or "quota exceeded" in exc_lower:
         return True, "Daily quota limit reached"
 
-    # Check if Groq tells us to wait an absurd amount of time (> 5 minutes / hours)
-    match = re.search(r"try again in (\d+(\.\d+)?)s", exc_lower)
-    if match:
-        seconds = float(match.group(1))
-        if seconds > 300:  # More than 5 minutes implies daily reset wait
-            return True, f"Long wait required ({seconds:.0f}s)"
-
-    # Check if wait time is in minutes/hours: e.g. "try again in 14h23m"
-    if re.search(r"try again in \d+h", exc_lower) or re.search(r"try again in \d+m", exc_lower):
-        return True, "Multi-minute/hour reset wait required"
+    # 3. Check parsed wait duration
+    wait_sec = parse_groq_wait_seconds(exc_str)
+    if wait_sec is not None:
+        # If it explicitly says TPM/RPM and wait is under 15 minutes, it is NOT a daily limit!
+        if is_explicit_minute and wait_sec < 900:
+            return False, ""
+        # If wait is 15+ minutes or explicitly includes hours, it's a daily reset
+        if wait_sec >= 900 or "h" in exc_lower:
+            return True, f"Daily reset wait required ({wait_sec / 3600:.1f}h)"
 
     return False, ""
 
 
 def extract_retry_after(exc_str: str, default_wait: float = 3.0) -> float:
-    """Extract wait duration from standard Groq / OpenAI rate limit messages."""
-    match = re.search(r"try again in (\d+(\.\d+)?)s", exc_str, re.IGNORECASE)
-    if match:
-        return float(match.group(1)) + 0.5
+    """Extract wait duration from Groq rate limit message, capping at 120s."""
+    parsed = parse_groq_wait_seconds(exc_str)
+    if parsed is not None:
+        return min(parsed + 1.0, 120.0)
     return default_wait
 
 
@@ -277,14 +318,20 @@ class GroqKeyRotator:
                 except Exception as exc:
                     exc_str = str(exc)
 
-                    # 1. Check if this is a Daily Quota limit (RPD / TPD)
+                    # 1. Invalid or Expired API key (HTTP 401) -> Rotate immediately, no retry delay
+                    if "401" in exc_str or "invalid_api_key" in exc_str.lower() or "expired_api_key" in exc_str.lower():
+                        log.error(f"[GroqKeyRotator] Key #{self.current_index + 1} is INVALID/EXPIRED ({exc_str[:120]}). Rotating to next key immediately...")
+                        self.mark_current_key_exhausted(f"Invalid/Expired API key")
+                        break
+
+                    # 2. Check if this is a Daily Quota limit (RPD / TPD)
                     is_daily, reason = is_daily_limit_error(exc_str)
                     if is_daily:
                         self.mark_current_key_exhausted(reason)
                         # Break out of transient loop to try next key
                         break
 
-                    # 2. Check if this is a transient rate limit (RPM / TPM)
+                    # 3. Check if this is a transient rate limit (RPM / TPM)
                     transient_attempt += 1
                     if "429" in exc_str or "rate limit" in exc_str.lower():
                         wait_sec = extract_retry_after(exc_str, default_wait=self.base_backoff ** transient_attempt)
@@ -301,10 +348,10 @@ class GroqKeyRotator:
                         )
                         time.sleep(wait_sec)
                     else:
-                        log.error(f"[GroqKeyRotator] Transient retries exhausted on Key #{self.current_index + 1}: {exc_str}")
-                        # Rotate to next key in case of persistent network/key anomaly
-                        self.mark_current_key_exhausted(f"Transient retries exhausted: {exc_str[:80]}")
-                        break
+                        log.error(f"[GroqKeyRotator] Transient retries exhausted on Key #{self.current_index + 1}: {exc_str[:120]}")
+                        # Do NOT kill the key for the day on a single bad prompt / format error.
+                        # Raise so caller can fall back to single-review mode or skip this item.
+                        raise RuntimeError(f"Request failed after {self.max_transient_retries} retries: {exc_str[:120]}")
 
     def generate_json(
         self,

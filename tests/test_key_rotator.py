@@ -16,16 +16,24 @@ from src.augmentation.key_rotator import (
 class TestGroqKeyRotator(unittest.TestCase):
 
     def test_daily_limit_detection(self):
-        # Daily limit messages
+        from src.augmentation.key_rotator import parse_groq_wait_seconds
+
+        # Test wait time parser
+        self.assertEqual(parse_groq_wait_seconds("try again in 4.5s"), 4.5)
+        self.assertEqual(parse_groq_wait_seconds("try again in 1m15.4s"), 75.4)
+        self.assertEqual(parse_groq_wait_seconds("try again in 2m"), 120.0)
+        self.assertEqual(parse_groq_wait_seconds("try again in 14h20m"), 51600.0)
+
+        # Daily limit messages (RPD / TPD / long wait)
         self.assertTrue(is_daily_limit_error("Rate limit reached for model on requests per day (RPD): Limit 1000")[0])
         self.assertTrue(is_daily_limit_error("Rate limit reached on tokens per day (TPD)")[0])
         self.assertTrue(is_daily_limit_error("Error 429: daily limit exceeded")[0])
         self.assertTrue(is_daily_limit_error("Rate limit: try again in 14h30m")[0])
-        self.assertTrue(is_daily_limit_error("Rate limit: try again in 450s")[0])
 
-        # Short term per-minute messages
-        is_daily, _ = is_daily_limit_error("Rate limit on tokens per minute (TPM). Please try again in 4.5s")
-        self.assertFalse(is_daily)
+        # Short-term per-minute messages (TPM / RPM) - MUST NOT BE DAILY LIMIT!
+        self.assertFalse(is_daily_limit_error("Rate limit on tokens per minute (TPM). Please try again in 4.5s")[0])
+        self.assertFalse(is_daily_limit_error("Rate limit on tokens per minute (TPM). Please try again in 1m15s")[0])
+        self.assertFalse(is_daily_limit_error("Rate limit reached for model on requests per minute (RPM). Please try again in 2m")[0])
 
     def test_key_rotation_across_5_keys(self):
         keys = ["key_1", "key_2", "key_3", "key_4", "key_5"]
