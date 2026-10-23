@@ -96,9 +96,10 @@ You don't need to wait for midnight UTC to test it!
 
 ### Automatic Schedule:
 - The workflow will automatically trigger at `00:05 UTC` every single day (5 minutes after Groq resets the daily quotas).
-- Newly labeled reviews are appended to `data/augmented/yelp_labeled_5000.jsonl`.
+- Newly labeled reviews are appended to `data/augmented/yelp_labeled_10000.jsonl` (starting from review 5,001).
 - Key quota states are tracked in `data/augmented/key_state.json`.
-- When 5,000 items are reached, the pipeline marks itself complete!
+- The pipeline verifies existing IDs against `data/augmented/yelp_labeled_10000.jsonl` and skips already-labeled reviews in milliseconds with 0 wasted API calls.
+- When 10,000 items are reached, the pipeline marks itself complete!
 
 ---
 
@@ -107,9 +108,9 @@ You don't need to wait for midnight UTC to test it!
 If you ever want to run the same script on your local machine or a cloud VPS:
 
 ```bash
-# Run a single daily batch locally:
-python scripts/run_daily_labeling.py --target-count 5000
+# Run a single daily batch:
+python scripts/run_daily_labeling.py --target-count 10000
 
 # Run in continuous background daemon mode (for an always-on VPS):
-python scripts/run_daily_labeling.py --daemon
+python scripts/run_daily_labeling.py --daemon --target-count 10000
 ```

@@ -400,19 +400,19 @@ def main() -> None:
         "--input",
         type=str,
         default="",
-        help="Input sampled reviews JSONL path (default: data/raw/yelp_restaurants_5000.jsonl or yelp_restaurants_sampled.jsonl)",
+        help="Input sampled reviews JSONL path (default: data/raw/yelp_restaurants_10000.jsonl or yelp_restaurants_5000.jsonl)",
     )
     parser.add_argument(
         "--output",
         type=str,
-        default="data/augmented/yelp_labeled_5000.jsonl",
-        help="Output labeled JSONL path",
+        default="",
+        help="Output labeled JSONL path (default: data/augmented/yelp_labeled_10000.jsonl)",
     )
     parser.add_argument(
         "--target-count",
         type=int,
-        default=5000,
-        help="Total reviews to label (default: 5000)",
+        default=10000,
+        help="Total reviews to label (default: 10000)",
     )
     parser.add_argument(
         "--batch-size",
@@ -449,16 +449,27 @@ def main() -> None:
     if args.input:
         input_path = Path(args.input)
     else:
+        candidate_10000 = Path("data/raw/yelp_restaurants_10000.jsonl")
         candidate_5000 = Path("data/raw/yelp_restaurants_5000.jsonl")
         candidate_sampled = Path("data/raw/yelp_restaurants_sampled.jsonl")
-        if candidate_5000.exists():
+        if candidate_10000.exists():
+            input_path = candidate_10000
+        elif candidate_5000.exists():
             input_path = candidate_5000
         elif candidate_sampled.exists():
             input_path = candidate_sampled
         else:
-            input_path = candidate_5000
+            input_path = candidate_10000
 
-    output_path = Path(args.output)
+    # Determine output file path
+    if args.output:
+        output_path = Path(args.output)
+    else:
+        if "10000" in input_path.name or args.target_count >= 10000:
+            output_path = Path("data/augmented/yelp_labeled_10000.jsonl")
+        else:
+            output_path = Path("data/augmented/yelp_labeled_5000.jsonl")
+
     output_path.parent.mkdir(parents=True, exist_ok=True)
 
     rotator = GroqKeyRotator(

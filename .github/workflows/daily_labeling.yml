@@ -45,7 +45,9 @@ jobs:
           GROQ_API_KEY_5: ${{ secrets.GROQ_API_KEY_5 }}
         run: |
           python scripts/run_daily_labeling.py \
-            --target-count 5000 \
+            --input data/raw/yelp_restaurants_10000.jsonl \
+            --output data/augmented/yelp_labeled_10000.jsonl \
+            --target-count 10000 \
             --batch-size 2
 
       - name: Commit and Push Newly Labeled Data
